@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - PantryItemTest</title>
+<title>Test results - TwinRecipeTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>PantryItemTest</h1>
+<h1>TwinRecipeTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/com.smartpantry.model.html">com.smartpantry.model</a> &gt; PantryItemTest</div>
+<a href="../packages/com.smartpantry.model.html">com.smartpantry.model</a> &gt; TwinRecipeTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">20</div>
+<div class="counter">13</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.027s</div>
+<div class="counter">0.017s</div>
 <p>duration</p>
 </div>
 </td>
@@ -75,103 +75,68 @@
 </tr>
 </thead>
 <tr>
-<td class="success">constructor_negativeQuantity_throwsException()</td>
-<td class="success">0.006s</td>
+<td class="success">constructor_blankName_throwsException()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">constructor_negativeThreshold_throwsException()</td>
+<td class="success">constructor_guiltyVariantMissingTag_throwsException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructor_healthyVariantMissingTag_throwsException()</td>
 <td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">constructor_nullBoughtDate_throwsException()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">constructor_nullExpirationDate_isAllowed()</td>
+<td class="success">constructor_nullGuiltyVariant_throwsException()</td>
 <td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">constructor_nullIngredient_throwsException()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">constructor_validInputs_storesAllFields()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">consume_moreThanAvailable_floorsAtZero()</td>
+<td class="success">constructor_nullHealthyVariant_throwsException()</td>
 <td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">consume_negativeAmount_throwsException()</td>
-<td class="success">0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">consume_reducesQuantity()</td>
+<td class="success">constructor_nullName_throwsException()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">isExpiredBy_afterExpirationDate_returnsTrue()</td>
-<td class="success">0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">isExpiredBy_beforeExpirationDate_returnsFalse()</td>
+<td class="success">constructor_storesBothVariants()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">isExpiredBy_nullExpiration_returnsFalse()</td>
-<td class="success">0s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">isExpiredBy_onExpirationDate_returnsTrue()</td>
+<td class="success">constructor_validInputs_defaultsToHealthy()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">isExpiringSoon_nullExpiration_returnsFalse()</td>
-<td class="success">0.001s</td>
+<td class="success">swap_fromHealthy_switchesToGuilty()</td>
+<td class="success">0.008s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">isLowStock_aboveThreshold_returnsFalse()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">isLowStock_atThreshold_returnsTrue()</td>
-<td class="success">0.007s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">isLowStock_belowThreshold_returnsTrue()</td>
+<td class="success">swap_thrice_endsOnGuilty()</td>
 <td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">restock_increasesQuantity()</td>
+<td class="success">swap_twice_returnsToHealthy()</td>
 <td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">restock_negativeAmount_throwsException()</td>
-<td class="success">0s</td>
+<td class="success">toString_afterSwap_showsGuiltyMode()</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">toString_containsKeyInfo()</td>
-<td class="success">0.004s</td>
+<td class="success">toString_healthy_showsHealthyMode()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -184,7 +149,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.0.0</a> at Mar 31, 2026, 1:40:19 PM</p>
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at Mar 31, 2026, 8:09:32 PM</p>
 </div>
 </div>
 </body>

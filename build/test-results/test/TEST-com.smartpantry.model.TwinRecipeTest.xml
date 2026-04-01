@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.smartpantry.model.TwinRecipeTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-04-01T03:09:32.406Z" hostname="bennys-MacBook-Pro-2024.local" time="0.021">
+  <properties/>
+  <testcase name="swap_fromHealthy_switchesToGuilty()" classname="com.smartpantry.model.TwinRecipeTest" time="0.008"/>
+  <testcase name="toString_afterSwap_showsGuiltyMode()" classname="com.smartpantry.model.TwinRecipeTest" time="0.002"/>
+  <testcase name="constructor_healthyVariantMissingTag_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.002"/>
+  <testcase name="constructor_storesBothVariants()" classname="com.smartpantry.model.TwinRecipeTest" time="0.001"/>
+  <testcase name="swap_twice_returnsToHealthy()" classname="com.smartpantry.model.TwinRecipeTest" time="0.0"/>
+  <testcase name="toString_healthy_showsHealthyMode()" classname="com.smartpantry.model.TwinRecipeTest" time="0.0"/>
+  <testcase name="constructor_guiltyVariantMissingTag_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.001"/>
+  <testcase name="constructor_blankName_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.001"/>
+  <testcase name="constructor_nullGuiltyVariant_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.0"/>
+  <testcase name="constructor_nullHealthyVariant_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.0"/>
+  <testcase name="constructor_nullName_throwsException()" classname="com.smartpantry.model.TwinRecipeTest" time="0.001"/>
+  <testcase name="constructor_validInputs_defaultsToHealthy()" classname="com.smartpantry.model.TwinRecipeTest" time="0.001"/>
+  <testcase name="swap_thrice_endsOnGuilty()" classname="com.smartpantry.model.TwinRecipeTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
