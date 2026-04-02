@@ -17,7 +17,7 @@ public class Recipe {
   private final String description;
   private final List<Ingredient> ingredients;
   private final List<String> steps;
-  private final int servings;
+  private final double servings;
   private final CuisineType cuisineType;
   private final Set<RecipeTag> tags;
 
@@ -37,7 +37,7 @@ public class Recipe {
       String description,
       List<Ingredient> ingredients,
       List<String> steps,
-      int servings,
+      double servings,
       CuisineType cuisineType,
       Set<RecipeTag> tags) {
     Objects.requireNonNull(name, "Name cannot be null");
@@ -87,7 +87,7 @@ public class Recipe {
     return new ArrayList<>(steps);
   }
 
-  public int getServings() {
+  public double getServings() {
     return servings;
   }
 
