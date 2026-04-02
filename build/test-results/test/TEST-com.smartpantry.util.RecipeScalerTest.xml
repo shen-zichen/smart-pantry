@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.smartpantry.util.RecipeScalerTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-04-02T04:19:04.975Z" hostname="bennys-MacBook-Pro-2024.local" time="0.031">
+  <properties/>
+  <testcase name="scaleByAnchor_scaleDown_allIngredientsFollow()" classname="com.smartpantry.util.RecipeScalerTest" time="0.008"/>
+  <testcase name="scaleByServings_half_halvesAllQuantities()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="getAnchorPercentages_preservesOrder()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByAnchor_negativeQuantity_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.003"/>
+  <testcase name="getAnchorPercentages_anchorIs100Percent()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByAnchor_doesNotMutateOriginal()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="scaleByAnchor_servingsScaleWithRatio()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="scaleByAnchor_nullRecipe_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_doesNotMutateOriginal()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_preservesMetadata()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_zeroTarget_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="getAnchorPercentages_otherIngredientsScaleCorrectly()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="scaleByAnchor_caseInsensitive()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="getAnchorPercentages_nonMainIngredientAsAnchor()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="scaleByServings_negativeTarget_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_fractional_scalesCorrectly()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByAnchor_unknownIngredient_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.003"/>
+  <testcase name="scaleByAnchor_scaleUp_allIngredientsFollow()" classname="com.smartpantry.util.RecipeScalerTest" time="0.0"/>
+  <testcase name="getAnchorPercentages_unknownAnchor_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_double_doublesAllQuantities()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <testcase name="scaleByServings_nullRecipe_throwsException()" classname="com.smartpantry.util.RecipeScalerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
