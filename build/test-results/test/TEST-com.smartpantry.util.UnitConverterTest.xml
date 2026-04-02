@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.smartpantry.util.UnitConverterTest" tests="31" skipped="0" failures="0" errors="0" timestamp="2026-04-02T03:36:07.200Z" hostname="bennys-MacBook-Pro-2024.local" time="0.03">
+  <properties/>
+  <testcase name="piecesToGrams_negativePieces_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.008"/>
+  <testcase name="toGrams_fromKilogram()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="emptyConverter_unitConversions_stillWork()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="fromGrams_toPound()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="toGrams_negativeQuantity_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="fromGrams_toKilogram()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="gramsToPieces_exactDivision()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="hasBallpark_caseInsensitive()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="emptyConverter_piecesToGrams_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="toMilliliters_fromCup()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="hasBallpark_knownIngredient_returnsTrue()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="toMilliliters_fromLiter()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="fromMilliliters_toCup()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toMilliliters_nonVolumeUnit_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toMilliliters_fromMl_identity()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toGrams_fromOunce()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toGrams_fromPound()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="fromMilliliters_toLiter()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="toGrams_fromGram_identity()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="gramsToPieces_unknownIngredient_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="gramsToPieces_fractionalResult()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="piecesToGrams_wholeNumber()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="hasBallpark_unknownIngredient_returnsFalse()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="toMilliliters_fromTablespoon()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="piecesToGrams_fractional()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="piecesToGrams_zero_returnsZero()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toMilliliters_fromFluidOunce()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="gramsToPieces_negativeGrams_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <testcase name="piecesToGrams_unknownIngredient_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toMilliliters_fromTeaspoon()" classname="com.smartpantry.util.UnitConverterTest" time="0.0"/>
+  <testcase name="toGrams_nonWeightUnit_throwsException()" classname="com.smartpantry.util.UnitConverterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
