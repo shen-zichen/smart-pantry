@@ -3,11 +3,11 @@ package com.smartpantry.observer;
 import com.smartpantry.model.PantryItem;
 
 /**
- * Observer interface for inventory events.
- * Implementing classes react to pantry changes — logging, alerting, UI updates, etc.
+ * Observer interface for inventory events. Implementing classes react to pantry changes — logging,
+ * alerting, UI updates, etc.
  *
- * <p>Part of the Observer Pattern: IInventorySubject fires events,
- * IInventoryObserver implementations handle them.
+ * <p>Part of the Observer Pattern: IInventorySubject fires events, IInventoryObserver
+ * implementations handle them.
  */
 public interface IInventoryObserver {
 
