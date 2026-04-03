@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.smartpantry.strategy.ProfessionalFormatterTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-04-03T23:58:17.365Z" hostname="bennys-MacBook-Pro-2024.local" time="0.026">
+  <properties/>
+  <testcase name="format_nullIngredient_throwsException()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.007"/>
+  <testcase name="formatList_multipleIngredients()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.003"/>
+  <testcase name="format_can_displaysWithAbbreviation()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <testcase name="format_cups_normalizesToMl()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="format_ounces_normalizesToGrams()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="constructor_nullConverter_throwsException()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <testcase name="formatWithAnchor_fractionalPercentage()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.003"/>
+  <testcase name="format_tablespoon_normalizesToMl()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="format_kilograms_normalizesToGrams()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="formatWithAnchor_wholePercentage_noDecimal()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.002"/>
+  <testcase name="format_liter_normalizesToMl()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="format_milliliters_displaysAsMl()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <testcase name="format_grams_displaysAsGrams()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <testcase name="format_pounds_normalizesToGrams()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="format_piece_displaysWithAbbreviation()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.0"/>
+  <testcase name="formatListWithAnchor_showsAllPercentages()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <testcase name="formatWithAnchor_showsPercentage()" classname="com.smartpantry.strategy.ProfessionalFormatterTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
