@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.smartpantry.observer.InventoryObserverTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-04-03T00:50:12.933Z" hostname="LAPTOP-SCIRB4H8" time="0.171">
+  <properties/>
+  <testcase name="expiringSoon_noExpirationDate_noAlert()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.061"/>
+  <testcase name="addItem_increasesCount()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.003"/>
+  <testcase name="consume_belowThreshold_triggersLowStockAlert()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.028"/>
+  <testcase name="removeItem_decreasesCount()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.0"/>
+  <testcase name="removeObserver_stopsReceivingAlerts()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.001"/>
+  <testcase name="getAllItems_returnsDefensiveCopy()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.001"/>
+  <testcase name="expiringSoon_withinWarningWindow_triggersAlert()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.001"/>
+  <testcase name="consume_exactlyAtThreshold_triggersAlert()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.002"/>
+  <testcase name="consumeItem_notInInventory_throwsException()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.023"/>
+  <testcase name="registerObserver_duplicateIgnored()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.008"/>
+  <testcase name="constructor_negativeWarningDays_throwsException()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.015"/>
+  <testcase name="restockItem_updatesQuantity()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.015"/>
+  <testcase name="consume_aboveThreshold_noLowStockAlert()" classname="com.smartpantry.observer.InventoryObserverTest" time="0.001"/>
+  <system-out><![CDATA[EXPIRING SOON: chicken thigh — expires 2026-04-04!
+LOW STOCK ALERT: chicken thigh — only 50.0g remaining!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+LOW STOCK ALERT: chicken thigh — only 100.0g remaining!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+LOW STOCK ALERT: chicken thigh — only 50.0g remaining!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+EXPIRING SOON: chicken thigh — expires 2026-04-04!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
