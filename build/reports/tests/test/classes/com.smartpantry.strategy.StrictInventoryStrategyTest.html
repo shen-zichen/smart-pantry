@@ -3,16 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Package com.smartpantry.strategy</title>
+<title>Test results - StrictInventoryStrategyTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Package com.smartpantry.strategy</h1>
+<h1>StrictInventoryStrategyTest</h1>
 <div class="breadcrumbs">
-<a href="../index.html">all</a> &gt; com.smartpantry.strategy</div>
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.smartpantry.strategy.html">com.smartpantry.strategy</a> &gt; StrictInventoryStrategyTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -60,31 +61,58 @@
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
-<a href="#">Classes</a>
+<a href="#">Tests</a>
 </li>
 </ul>
 <div class="tab">
-<h2>Classes</h2>
+<h2>Tests</h2>
 <table>
 <thead>
 <tr>
-<th>Class</th>
-<th>Tests</th>
-<th>Failures</th>
-<th>Ignored</th>
+<th>Test</th>
 <th>Duration</th>
-<th>Success rate</th>
+<th>Result</th>
 </tr>
 </thead>
 <tr>
-<td class="success">
-<a href="../classes/com.smartpantry.strategy.StrictInventoryStrategyTest.html">StrictInventoryStrategyTest</a>
-</td>
-<td>8</td>
-<td>0</td>
-<td>0</td>
-<td>0.027s</td>
-<td class="success">100%</td>
+<td class="success">constructor_negativeMaxRecipes_throwsException()</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">constructor_zeroMaxRecipes_throwsException()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_nothingCookable_fallsBackToFirstRecipe()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_onlyIncludesFullyCookableRecipes()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_preservesRecipeOrder()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_rejectsRecipeWhenQuantityInsufficient()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_respectsMaxRecipes()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">generatePlan_strategyNameIsStrictInventory()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
