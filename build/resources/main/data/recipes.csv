@@ -1,0 +1,4 @@
+name,description,servings,cuisineType,tags,ingredients,steps
+Orange Chicken,Crispy chicken in citrus glaze,2,CHINESE,HEALTHY;QUICK,chicken thigh:500:GRAM:PROTEIN;onion:100:GRAM:VEGETABLE;garlic:10:GRAM:SPICE,Dice chicken;Heat oil;Fry chicken;Make sauce;Combine and serve
+Fried Rice,Classic Chinese fried rice,2,CHINESE,QUICK;BUDGET_FRIENDLY,rice:300:GRAM:GRAIN;egg:2:PIECE:PROTEIN;soy sauce:15:MILLILITER:OIL,Cook rice;Scramble eggs;Stir fry together;Season and serve
+Chicken Soup,Warm comforting soup,4,AMERICAN,HEALTHY;BEGINNER,chicken thigh:400:GRAM:PROTEIN;onion:150:GRAM:VEGETABLE;garlic:5:GRAM:SPICE;salt:3:GRAM:SPICE,Boil water;Add chicken;Add vegetables;Simmer 30 min;Season and serve
