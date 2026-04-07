@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.smartpantry.controller.GroceryControllerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-04-07T04:08:27.179Z" hostname="bennys-MacBook-Pro-2024.local" time="0.018">
+<testsuite name="com.smartpantry.controller.GroceryControllerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-04-07T05:14:11.230Z" hostname="bennys-MacBook-Pro-2024.local" time="0.016">
   <properties/>
-  <testcase name="generateGroceryList_partialStock_returnsDeficits()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.012"/>
+  <testcase name="generateGroceryList_partialStock_returnsDeficits()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.01"/>
   <testcase name="constructor_nullFormatter_throwsException()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.001"/>
-  <testcase name="setFormatter_null_throwsException()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.0"/>
-  <testcase name="generateAndFormat_combinesBothSteps()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.003"/>
+  <testcase name="setFormatter_null_throwsException()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.001"/>
+  <testcase name="generateAndFormat_combinesBothSteps()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.002"/>
   <testcase name="generateGroceryList_allInStock_emptyList()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.0"/>
-  <testcase name="constructor_nullGenerator_throwsException()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.001"/>
+  <testcase name="constructor_nullGenerator_throwsException()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.0"/>
   <testcase name="formatGroceryList_empty_showsNoShoppingMessage()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.0"/>
   <testcase name="formatGroceryList_proMode_showsGrams()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.001"/>
   <testcase name="formatGroceryList_withItems_showsNumberedList()" classname="com.smartpantry.controller.GroceryControllerTest" time="0.0"/>
