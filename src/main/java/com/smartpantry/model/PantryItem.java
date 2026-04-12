@@ -17,6 +17,7 @@ public class PantryItem {
   private final LocalDate boughtDate;
   private final LocalDate expirationDate;
   private final double lowStockThreshold; // per-item, not global — 10g salt ≠ 10 pieces chicken
+  private Long id; // null until persisted — database assigns it
 
   /**
    * Constructs a PantryItem with validated inputs.
@@ -78,6 +79,10 @@ public class PantryItem {
     return lowStockThreshold;
   }
 
+  public Long getId() {
+    return id;
+  }
+
   // ---- Mutators ----
 
   /**
@@ -105,6 +110,10 @@ public class PantryItem {
       throw new IllegalArgumentException("Cannot restock a negative amount: " + amount);
     }
     this.quantityInStock += amount;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   // ---- Query methods ----

@@ -16,6 +16,7 @@ public class TwinRecipe {
   private final Recipe healthyVariant;
   private final Recipe guiltyVariant;
   private Recipe activeRecipe; // mutable — changes on swap()
+  private Long id;
 
   /**
    * Constructs a TwinRecipe. Active variant defaults to healthy.
@@ -67,6 +68,14 @@ public class TwinRecipe {
 
   public Recipe getGuiltyVariant() {
     return guiltyVariant;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   /** Returns true if the healthy variant is currently active. */

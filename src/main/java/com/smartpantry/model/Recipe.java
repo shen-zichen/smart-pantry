@@ -20,6 +20,7 @@ public class Recipe {
   private final double servings;
   private final CuisineType cuisineType;
   private final Set<RecipeTag> tags;
+  private Long id;
 
   /**
    * Constructs a Recipe with validated and defensively copied inputs.
@@ -97,6 +98,14 @@ public class Recipe {
 
   public Set<RecipeTag> getTags() {
     return new HashSet<>(tags);
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   /** Convenience method — strategies can quickly check if a recipe has a specific tag. */

@@ -12,8 +12,10 @@ public class MealPlanMapper {
   public static MealPlan toDomain(MealPlanEntity entity) {
     List<Recipe> recipes = entity.getRecipes().stream().map(RecipeMapper::toDomain).toList();
 
-    return new MealPlan(
-        entity.getStrategyName(), recipes, entity.getDays(), entity.getCreatedDate());
+    MealPlan plan =
+        new MealPlan(entity.getStrategyName(), recipes, entity.getDays(), entity.getCreatedDate());
+    plan.setId(entity.getId());
+    return plan;
   }
 
   public static MealPlanEntity toEntity(MealPlan mealPlan, List<RecipeEntity> recipeEntities) {

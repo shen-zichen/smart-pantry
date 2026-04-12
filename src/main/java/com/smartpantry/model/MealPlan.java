@@ -18,6 +18,7 @@ public class MealPlan {
   private final List<Recipe> recipes;
   private final int days; // how many days this plan covers
   private final LocalDate createdDate;
+  private Long id;
 
   /**
    * Constructs a MealPlan with validated and defensively copied inputs.
@@ -83,5 +84,13 @@ public class MealPlan {
         + ", created="
         + createdDate
         + '}';
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

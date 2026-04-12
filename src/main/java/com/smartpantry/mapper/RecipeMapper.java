@@ -13,14 +13,17 @@ public class RecipeMapper {
     List<Ingredient> ingredients =
         entity.getIngredients().stream().map(IngredientMapper::toDomain).toList();
 
-    return new Recipe(
-        entity.getName(),
-        entity.getDescription(),
-        ingredients,
-        entity.getSteps(),
-        entity.getServings(),
-        entity.getCuisineType(),
-        entity.getTags());
+    Recipe recipe =
+        new Recipe(
+            entity.getName(),
+            entity.getDescription(),
+            ingredients,
+            entity.getSteps(),
+            entity.getServings(),
+            entity.getCuisineType(),
+            entity.getTags());
+    recipe.setId(entity.getId());
+    return recipe;
   }
 
   public static RecipeEntity toEntity(Recipe recipe) {

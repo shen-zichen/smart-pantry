@@ -11,6 +11,7 @@ public class TwinRecipeMapper {
     Recipe guilty = RecipeMapper.toDomain(entity.getGuiltyVariant());
 
     TwinRecipe twin = new TwinRecipe(entity.getName(), healthy, guilty);
+    twin.setId(entity.getId());
 
     // TwinRecipe defaults to healthy — only swap if guilty was active
     if (!entity.isHealthyActive()) {
