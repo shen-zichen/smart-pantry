@@ -8,6 +8,8 @@ import com.smartpantry.model.Recipe;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * Pantry-first meal plan strategy: prioritizes recipes that maximize use of ingredients already in
@@ -20,6 +22,7 @@ import java.util.List;
  * <p>Future: will be complemented by a cost-based BudgetStrategy once price data is available from
  * grocery APIs.
  */
+@Component("pantryFirst")
 public class PantryFirstStrategy implements IMealPlanStrategy {
 
   private final int maxRecipes;
@@ -29,7 +32,8 @@ public class PantryFirstStrategy implements IMealPlanStrategy {
    *
    * @param maxRecipes maximum number of recipes in the plan
    */
-  public PantryFirstStrategy(int maxRecipes) {
+  public PantryFirstStrategy(
+      @Value("${smartpantry.strategy.pantry-first-max-recipes:7}") int maxRecipes) {
     if (maxRecipes <= 0) {
       throw new IllegalArgumentException("Max recipes must be positive: " + maxRecipes);
     }

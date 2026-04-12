@@ -8,6 +8,8 @@ import com.smartpantry.model.Recipe;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * Strict inventory strategy: only suggests recipes where EVERY ingredient is available in the
@@ -19,6 +21,7 @@ import java.util.List;
  * <p>If multiple recipes qualify, they're returned in their original order from the recipe library,
  * up to the max.
  */
+@Component("strict")
 public class StrictInventoryStrategy implements IMealPlanStrategy {
 
   private final int maxRecipes;
@@ -28,7 +31,7 @@ public class StrictInventoryStrategy implements IMealPlanStrategy {
    *
    * @param maxRecipes maximum number of recipes in the plan
    */
-  public StrictInventoryStrategy(int maxRecipes) {
+  public StrictInventoryStrategy(@Value("${smartpantry.strategy.max-recipes:7}") int maxRecipes) {
     if (maxRecipes <= 0) {
       throw new IllegalArgumentException("Max recipes must be positive: " + maxRecipes);
     }

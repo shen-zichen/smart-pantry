@@ -8,6 +8,8 @@ import com.smartpantry.model.Recipe;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * Zero-waste meal plan strategy: prioritizes recipes that consume ingredients closest to
@@ -17,6 +19,7 @@ import java.util.List;
  * many expiring ingredients it uses 3. Filter out recipes that can't be fully cooked from current
  * inventory 4. Sort by score (highest first) and pick the top N
  */
+@Component("zeroWaste")
 public class ZeroWasteStrategy implements IMealPlanStrategy {
 
   private final int expirationWindowDays;
@@ -28,7 +31,9 @@ public class ZeroWasteStrategy implements IMealPlanStrategy {
    * @param expirationWindowDays how many days ahead to consider "expiring soon"
    * @param maxRecipes maximum number of recipes in the plan
    */
-  public ZeroWasteStrategy(int expirationWindowDays, int maxRecipes) {
+  public ZeroWasteStrategy(
+      @Value("${smartpantry.strategy.zero-waste-expiration-days:3}") int expirationWindowDays,
+      @Value("${smartpantry.strategy.max-recipes:7}") int maxRecipes) {
     if (expirationWindowDays < 0) {
       throw new IllegalArgumentException(
           "Expiration window cannot be negative: " + expirationWindowDays);
