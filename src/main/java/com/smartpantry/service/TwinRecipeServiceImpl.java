@@ -1,6 +1,7 @@
 package com.smartpantry.service;
 
 import com.smartpantry.entity.TwinRecipeEntity;
+import com.smartpantry.exception.ResourceNotFoundException;
 import com.smartpantry.mapper.TwinRecipeMapper;
 import com.smartpantry.model.TwinRecipe;
 import com.smartpantry.repository.TwinRecipeRepository;
@@ -27,7 +28,7 @@ public class TwinRecipeServiceImpl implements ITwinRecipeService {
     TwinRecipeEntity entity =
         repository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Twin recipe not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Twin recipe not found: " + id));
     return TwinRecipeMapper.toDomain(entity);
   }
 
@@ -41,7 +42,7 @@ public class TwinRecipeServiceImpl implements ITwinRecipeService {
   @Override
   public void deleteTwinRecipe(Long id) {
     if (!repository.existsById(id)) {
-      throw new RuntimeException("Twin recipe not found: " + id);
+      throw new ResourceNotFoundException("Twin recipe not found: " + id);
     }
     repository.deleteById(id);
   }
@@ -51,7 +52,7 @@ public class TwinRecipeServiceImpl implements ITwinRecipeService {
     TwinRecipeEntity entity =
         repository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Twin recipe not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Twin recipe not found: " + id));
 
     entity.setHealthyActive(!entity.isHealthyActive());
     TwinRecipeEntity saved = repository.save(entity);

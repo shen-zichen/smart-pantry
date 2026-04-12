@@ -1,6 +1,7 @@
 package com.smartpantry.service;
 
 import com.smartpantry.entity.PantryItemEntity;
+import com.smartpantry.exception.ResourceNotFoundException;
 import com.smartpantry.mapper.PantryItemMapper;
 import com.smartpantry.mapper.IngredientMapper;
 import com.smartpantry.model.PantryItem;
@@ -29,7 +30,7 @@ public class PantryServiceImpl implements IPantryService {
     PantryItemEntity entity =
         repository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Pantry item not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Pantry item not found: " + id));
     return PantryItemMapper.toDomain(entity);
   }
 
@@ -44,7 +45,7 @@ public class PantryServiceImpl implements IPantryService {
   @Override
   public void deleteItem(Long id) {
     if (!repository.existsById(id)) {
-      throw new RuntimeException("Pantry item not found: " + id);
+      throw new ResourceNotFoundException("Pantry item not found: " + id);
     }
     repository.deleteById(id);
   }
@@ -54,7 +55,7 @@ public class PantryServiceImpl implements IPantryService {
     PantryItemEntity entity =
         repository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Pantry item not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Pantry item not found: " + id));
 
     double newQuantity = Math.max(0, entity.getQuantityInStock() - amount);
     entity.setQuantityInStock(newQuantity);
@@ -68,7 +69,7 @@ public class PantryServiceImpl implements IPantryService {
     PantryItemEntity entity =
         repository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Pantry item not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Pantry item not found: " + id));
 
     entity.setQuantityInStock(entity.getQuantityInStock() + amount);
 

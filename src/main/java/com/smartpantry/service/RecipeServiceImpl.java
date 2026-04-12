@@ -1,6 +1,7 @@
 package com.smartpantry.service;
 
 import com.smartpantry.entity.RecipeEntity;
+import com.smartpantry.exception.ResourceNotFoundException;
 import com.smartpantry.mapper.RecipeMapper;
 import com.smartpantry.model.CuisineType;
 import com.smartpantry.model.Recipe;
@@ -27,7 +28,9 @@ public class RecipeServiceImpl implements IRecipeService {
   @Override
   public Recipe getRecipeById(Long id) {
     RecipeEntity entity =
-        repository.findById(id).orElseThrow(() -> new RuntimeException("Recipe not found: " + id));
+        repository
+            .findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Recipe not found: " + id));
     return RecipeMapper.toDomain(entity);
   }
 
@@ -41,7 +44,7 @@ public class RecipeServiceImpl implements IRecipeService {
   @Override
   public void deleteRecipe(Long id) {
     if (!repository.existsById(id)) {
-      throw new RuntimeException("Recipe not found: " + id);
+      throw new ResourceNotFoundException("Recipe not found: " + id);
     }
     repository.deleteById(id);
   }

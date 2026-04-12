@@ -2,8 +2,8 @@ package com.smartpantry.service;
 
 import com.smartpantry.entity.MealPlanEntity;
 import com.smartpantry.entity.RecipeEntity;
+import com.smartpantry.exception.ResourceNotFoundException;
 import com.smartpantry.mapper.MealPlanMapper;
-import com.smartpantry.mapper.PantryItemMapper;
 import com.smartpantry.mapper.RecipeMapper;
 import com.smartpantry.model.Ingredient;
 import com.smartpantry.model.MealPlan;
@@ -52,7 +52,7 @@ public class MealPlanServiceImpl implements IMealPlanService {
   public MealPlan generatePlan(String strategyName, int days) {
     IMealPlanStrategy strategy = strategies.get(strategyName);
     if (strategy == null) {
-      throw new RuntimeException(
+      throw new ResourceNotFoundException(
           "Unknown strategy: " + strategyName + ". Available: " + strategies.keySet());
     }
 
@@ -82,7 +82,7 @@ public class MealPlanServiceImpl implements IMealPlanService {
     MealPlanEntity entity =
         mealPlanRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Meal plan not found: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Meal plan not found: " + id));
     return MealPlanMapper.toDomain(entity);
   }
 
