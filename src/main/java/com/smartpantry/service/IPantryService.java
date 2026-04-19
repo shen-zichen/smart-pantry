@@ -20,6 +20,8 @@ public interface IPantryService {
 
   List<PantryItem> findByName(String name);
 
+  List<PantryItem> findByExactName(String name);
+
   List<PantryItem> getLowStockItems();
 
   List<PantryItem> getExpiringSoonItems(int days);

@@ -9,6 +9,9 @@ import com.smartpantry.model.PantryItem;
  */
 public class PantryItemDtoMapper {
 
+  // TODO: read from application.yml (smartpantry.strategy.zero-waste-expiration-days) via Spring config
+  private static final int EXPIRING_SOON_DAYS = 3;
+
   public static PantryItemResponse toResponse(PantryItem item) {
     return new PantryItemResponse(
         item.getId(),
@@ -20,7 +23,7 @@ public class PantryItemDtoMapper {
         item.getExpirationDate(),
         item.getLowStockThreshold(),
         item.isLowStock(),
-        item.isExpiringSoon(3)
+        item.isExpiringSoon(EXPIRING_SOON_DAYS)
     );
   }
 

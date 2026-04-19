@@ -10,8 +10,15 @@ const mealPlanApi = {
 
   getById: (id) => api.get(`/meal-plans/${id}`).then((res) => res.data),
 
+  markCooked: (planId, recipeIndex) =>
+    api
+      .post(`/meal-plans/${planId}/cook/${recipeIndex}`)
+      .then((res) => res.data),
+
   postMealConsume: (id) =>
     api.post(`/meal-plans/${id}/consume`).then((res) => res.data),
+
+  deletePlan: (id) => api.delete(`/meal-plans/${id}`),
 
   getStrategies: () =>
     api.get("/meal-plans/strategies").then((res) => res.data),

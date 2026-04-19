@@ -139,4 +139,41 @@ public class Recipe {
   public String toString() {
     return name + " (" + description + ") — serves " + servings;
   }
+
+  /**
+   * Returns a new Recipe object scaled to yield the requested number of servings.
+   * Ingredient quantities are adjusted proportionally.
+   */
+  public Recipe scale(double newServings) {
+    if (newServings <= 0) {
+      throw new IllegalArgumentException("Scale servings must be positive: " + newServings);
+    }
+    if (this.servings == newServings) {
+      return this;
+    }
+
+    double ratio = newServings / this.servings;
+    List<Ingredient> scaledIngredients = new ArrayList<>();
+    for (Ingredient ing : ingredients) {
+      double scaledQuantity = Math.round(ing.getQuantity() * ratio * 100.0) / 100.0; // round to 2 decimals
+      scaledIngredients.add(new Ingredient(
+          ing.getName(),
+          scaledQuantity,
+          ing.getUnitType(),
+          ing.getCategoryType()
+      ));
+    }
+
+    Recipe scaledRecipe = new Recipe(
+        name,
+        description,
+        scaledIngredients,
+        steps,
+        newServings,
+        cuisineType,
+        tags
+    );
+    scaledRecipe.setId(this.getId()); // preserve ID to link back to DB entity
+    return scaledRecipe;
+  }
 }

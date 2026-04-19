@@ -11,7 +11,7 @@ public class PantryItemEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ingredient_id")
   private IngredientEntity ingredient;
 

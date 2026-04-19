@@ -39,26 +39,33 @@ public class StrictInventoryStrategy implements IMealPlanStrategy {
   }
 
   @Override
-  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes) {
+  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes, int targetServings) {
     List<Recipe> selectedRecipes = new ArrayList<>();
+    double currentServings = 0;
 
     for (Recipe recipe : recipes) {
+      if (currentServings >= targetServings) {
+        break;
+      }
       if (isFullyCookable(recipe, inventory)) {
-        selectedRecipes.add(recipe);
-        if (selectedRecipes.size() >= maxRecipes) {
-          break;
+        double needed = targetServings - currentServings;
+        double available = recipe.getServings();
+        if (available > needed) {
+          selectedRecipes.add(recipe.scale(needed));
+          currentServings += needed;
+        } else {
+          selectedRecipes.add(recipe);
+          currentServings += available;
         }
       }
     }
 
-    // If nothing is fully cookable, include the first recipe as a suggestion
-    // Controller/View will handle the "you need to buy ingredients" message
-    if (selectedRecipes.isEmpty() && !recipes.isEmpty()) {
-      selectedRecipes.add(recipes.get(0));
+    if (selectedRecipes.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Insufficient inventory to strictly generate a meal plan. Try Pantry First strategy.");
     }
 
-    return new MealPlan(
-        "Strict Inventory", selectedRecipes, selectedRecipes.size(), LocalDate.now());
+    return new MealPlan("Strict Inventory", selectedRecipes, targetServings, LocalDate.now());
   }
 
   // ---- Private helpers ----

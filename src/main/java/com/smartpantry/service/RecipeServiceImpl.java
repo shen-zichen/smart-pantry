@@ -15,9 +15,11 @@ import java.util.List;
 public class RecipeServiceImpl implements IRecipeService {
 
   private final RecipeRepository repository;
+  private final com.smartpantry.repository.MealPlanRepository mealPlanRepository;
 
-  public RecipeServiceImpl(RecipeRepository repository) {
+  public RecipeServiceImpl(RecipeRepository repository, com.smartpantry.repository.MealPlanRepository mealPlanRepository) {
     this.repository = repository;
+    this.mealPlanRepository = mealPlanRepository;
   }
 
   @Override
@@ -46,6 +48,13 @@ public class RecipeServiceImpl implements IRecipeService {
     if (!repository.existsById(id)) {
       throw new ResourceNotFoundException("Recipe not found: " + id);
     }
+    
+    // First, delete any meal plans that contain this recipe to avoid FK constraint violations
+    List<com.smartpantry.entity.MealPlanEntity> affectedPlans = mealPlanRepository.findByRecipes_Id(id);
+    if (!affectedPlans.isEmpty()) {
+      mealPlanRepository.deleteAll(affectedPlans);
+    }
+    
     repository.deleteById(id);
   }
 

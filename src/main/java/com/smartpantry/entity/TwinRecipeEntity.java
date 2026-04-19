@@ -12,11 +12,11 @@ public class TwinRecipeEntity {
 
   private String name;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "healthy_recipe_id")
   private RecipeEntity healthyVariant;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "guilty_recipe_id")
   private RecipeEntity guiltyVariant;
 

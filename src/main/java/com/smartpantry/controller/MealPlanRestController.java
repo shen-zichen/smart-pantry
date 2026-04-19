@@ -44,10 +44,24 @@ public class MealPlanRestController {
     return MealPlanDtoMapper.toResponse(plan);
   }
 
-  /** POST /api/meal-plans/{id}/consume — deduct ingredients from pantry. */
+  /** POST /api/meal-plans/{id}/cook/{recipeIndex} — mark one recipe as cooked and deduct from pantry. */
+  @PostMapping("/{id}/cook/{recipeIndex}")
+  public MealPlanResponse markCooked(@PathVariable Long id, @PathVariable int recipeIndex) {
+    MealPlan plan = mealPlanService.markRecipeCooked(id, recipeIndex);
+    return MealPlanDtoMapper.toResponse(plan);
+  }
+
+  /** POST /api/meal-plans/{id}/consume — deduct ALL ingredients from pantry (legacy). */
   @PostMapping("/{id}/consume")
   public void postMealConsume(@PathVariable Long id) {
     mealPlanService.postMealConsume(id);
+  }
+
+  /** DELETE /api/meal-plans/{id} — delete a meal plan. */
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deletePlan(@PathVariable Long id) {
+    mealPlanService.deletePlan(id);
   }
 
   /** GET /api/meal-plans/strategies — list available strategy names. */

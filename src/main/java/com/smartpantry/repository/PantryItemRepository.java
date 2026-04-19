@@ -8,4 +8,6 @@ import java.util.List;
 public interface PantryItemRepository extends JpaRepository<PantryItemEntity, Long> {
 
   List<PantryItemEntity> findByIngredientNameContainingIgnoreCase(String name);
+
+  List<PantryItemEntity> findByIngredientNameIgnoreCase(String name);
 }

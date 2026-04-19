@@ -619,7 +619,10 @@ export default function RecipesPage() {
                   </div>
                   <div className="mt-4 flex justify-end">
                     <button
-                      onClick={() => handleDelete(recipe.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(recipe.id);
+                      }}
                       className="text-sm text-red-500 hover:text-red-700"
                     >
                       Delete Recipe

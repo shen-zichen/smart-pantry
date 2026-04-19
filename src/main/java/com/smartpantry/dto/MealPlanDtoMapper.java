@@ -12,7 +12,8 @@ public class MealPlanDtoMapper {
         plan.getRecipes().stream().map(RecipeDtoMapper::toResponse).toList();
 
     return new MealPlanResponse(
-        plan.getId(), plan.getStrategyName(), recipeDtos, plan.getDays(), plan.getCreatedDate());
+        plan.getId(), plan.getStrategyName(), recipeDtos, plan.getDays(), plan.getCreatedDate(),
+        plan.getCookedIndexes(), plan.isRequiresGroceryRun());
   }
 
   private MealPlanDtoMapper() {}

@@ -24,17 +24,17 @@ public class RecipeEntity {
   @Enumerated(EnumType.STRING)
   private CuisineType cuisineType;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
   @JoinColumn(name = "recipe_id")
   private List<IngredientEntity> ingredients = new ArrayList<>();
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "recipe_steps", joinColumns = @JoinColumn(name = "recipe_id"))
   @OrderColumn(name = "step_order")
   @Column(name = "step")
   private List<String> steps = new ArrayList<>();
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "recipe_tags", joinColumns = @JoinColumn(name = "recipe_id"))
   @Enumerated(EnumType.STRING)
   @Column(name = "tag")

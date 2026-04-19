@@ -46,50 +46,58 @@ public class ZeroWasteStrategy implements IMealPlanStrategy {
   }
 
   @Override
-  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes) {
-    List<PantryItem> expiringItems = getExpiringItems(inventory);
+  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes, int targetServings) {
+    // 1. Identify critical ingredients dying soon
+    List<PantryItem> criticalItems =
+        inventory.stream().filter(item -> item.isExpiringSoon(expirationWindowDays)).toList();
 
-    // Score each recipe, pair them up, and sort by score descending
+    // 2. Score recipes by how many critical items they use
     List<ScoredRecipe> scoredRecipes = new ArrayList<>();
     for (Recipe recipe : recipes) {
-      int score = scoreRecipe(recipe, expiringItems);
-      if (score > 0 && isFullyCookable(recipe, inventory)) {
+      int score = scoreRecipe(recipe, criticalItems);
+      if (score > 0) {
         scoredRecipes.add(new ScoredRecipe(recipe, score));
       }
     }
 
-    // Sort: highest score first. If tied, keep original recipe order (stable sort)
+    // 3. Sort by usefulness (score)
     scoredRecipes.sort((a, b) -> Integer.compare(b.score, a.score));
 
-    // Pick top N recipes
+    // 4. Select top ones and scale to fit exact targetServings
     List<Recipe> selectedRecipes = new ArrayList<>();
-    for (int i = 0; i < Math.min(maxRecipes, scoredRecipes.size()); i++) {
-      selectedRecipes.add(scoredRecipes.get(i).recipe);
+    double currentServings = 0;
+    
+    for (ScoredRecipe sr : scoredRecipes) {
+      if (currentServings >= targetServings) break;
+      Recipe recipe = sr.recipe;
+      double needed = targetServings - currentServings;
+      double available = recipe.getServings();
+      if (available > needed) {
+        selectedRecipes.add(recipe.scale(needed));
+        currentServings += needed;
+      } else {
+        selectedRecipes.add(recipe);
+        currentServings += available;
+      }
     }
 
-    // If no recipes scored, fall back to any cookable recipe
-    if (selectedRecipes.isEmpty()) {
+    // Fallback: fill with any recipe if we didn't hit targetServings
+    if (currentServings < targetServings) {
       for (Recipe recipe : recipes) {
-        if (isFullyCookable(recipe, inventory)) {
+        if (currentServings >= targetServings) break;
+        // Don't add dupes unless we have to, but for simplicity just add them
+        double needed = targetServings - currentServings;
+        double available = recipe.getServings();
+        if (available > needed) {
+          selectedRecipes.add(recipe.scale(needed));
+          currentServings += needed;
           selectedRecipes.add(recipe);
-          if (selectedRecipes.size() >= maxRecipes) {
-            break;
-          }
+          currentServings += available;
         }
       }
     }
 
-    // If still nothing is cookable, return a plan with whatever scored highest
-    // (the controller/view will handle the "not enough ingredients" message)
-    if (selectedRecipes.isEmpty() && !recipes.isEmpty()) {
-      selectedRecipes.add(recipes.get(0));
-    }
-
-    return new MealPlan(
-        "Zero Waste",
-        selectedRecipes,
-        selectedRecipes.size(), // one recipe per day
-        LocalDate.now());
+    return new MealPlan("Zero Waste", selectedRecipes, targetServings, LocalDate.now());
   }
 
   // ---- Private helpers ----

@@ -8,77 +8,74 @@ import com.smartpantry.model.Recipe;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
  * Pantry-first meal plan strategy: prioritizes recipes that maximize use of ingredients already in
  * stock, minimizing grocery trips.
  *
- * <p>Algorithm: 1. Score each recipe by how many of its ingredients are in the pantry 2. Filter out
- * recipes that can't be fully cooked from current inventory 3. Sort by score (highest first) and
- * pick the top N
- *
- * <p>Future: will be complemented by a cost-based BudgetStrategy once price data is available from
- * grocery APIs.
+ * <p>Algorithm: 1. Score each recipe by how many of its ingredients are in the pantry 2. Sort by
+ * score (highest proportion of ingredients found first) 3. Iteratively add scaling recipes until targetServings is met
  */
 @Component("pantryFirst")
 public class PantryFirstStrategy implements IMealPlanStrategy {
 
-  private final int maxRecipes;
-
-  /**
-   * Constructs a PantryFirstStrategy.
-   *
-   * @param maxRecipes maximum number of recipes in the plan
-   */
-  public PantryFirstStrategy(
-      @Value("${smartpantry.strategy.pantry-first-max-recipes:7}") int maxRecipes) {
-    if (maxRecipes <= 0) {
-      throw new IllegalArgumentException("Max recipes must be positive: " + maxRecipes);
-    }
-    this.maxRecipes = maxRecipes;
-  }
-
   @Override
-  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes) {
+  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes, int targetServings) {
 
-    // Score each recipe by pantry coverage, keep only cookable ones
+    // Score each recipe by pantry coverage
     List<ScoredRecipe> scoredRecipes = new ArrayList<>();
     for (Recipe recipe : recipes) {
       int score = scoreRecipe(recipe, inventory);
-      if (score > 0 && isFullyCookable(recipe, inventory)) {
-        scoredRecipes.add(new ScoredRecipe(recipe, score));
+      int totalIngredients = recipe.getIngredients().size();
+      if (totalIngredients > 0) {
+        scoredRecipes.add(new ScoredRecipe(recipe, score, totalIngredients));
       }
     }
 
-    // Highest coverage first
-    scoredRecipes.sort((a, b) -> Integer.compare(b.score, a.score));
+    // Sort by percentage of ingredients derived from the pantry
+    scoredRecipes.sort((a, b) -> Double.compare(b.getPercentage(), a.getPercentage()));
 
-    // Pick top N
-    List<Recipe> selectedRecipes = new ArrayList<>();
-    for (int i = 0; i < Math.min(maxRecipes, scoredRecipes.size()); i++) {
-      selectedRecipes.add(scoredRecipes.get(i).recipe);
-    }
+    List<Recipe> planRecipes = new ArrayList<>();
+    double currentServings = 0;
+    boolean requiresGroceryRun = false;
 
-    // Fallback: if nothing scored, pick any cookable recipe
-    if (selectedRecipes.isEmpty()) {
-      for (Recipe recipe : recipes) {
-        if (isFullyCookable(recipe, inventory)) {
-          selectedRecipes.add(recipe);
-          if (selectedRecipes.size() >= maxRecipes) {
-            break;
-          }
-        }
+    // Pick top recipes until we hit targetServings
+    for (ScoredRecipe scored : scoredRecipes) {
+      if (currentServings >= targetServings) {
+        break;
+      }
+
+      // If coverage isn't 100%, we'll need to buy something
+      if (scored.score < scored.totalIngredients) {
+        requiresGroceryRun = true;
+      }
+
+      Recipe recipe = scored.recipe;
+      double needed = targetServings - currentServings;
+      double available = recipe.getServings();
+
+      if (available > needed) {
+        // Scale it down
+        planRecipes.add(recipe.scale(needed));
+        currentServings += needed;
+      } else {
+        // Keep as is
+        planRecipes.add(recipe);
+        currentServings += available;
       }
     }
 
-    // Last resort: pick first recipe so MealPlan constructor doesn't reject empty list
-    if (selectedRecipes.isEmpty() && !recipes.isEmpty()) {
-      selectedRecipes.add(recipes.get(0));
+    // Last resort: pick first recipe scaled if nothing else
+    if (planRecipes.isEmpty() && !recipes.isEmpty()) {
+      Recipe fallback = recipes.get(0);
+      planRecipes.add(fallback.scale(targetServings));
+      requiresGroceryRun = true;
     }
 
-    return new MealPlan("Pantry First", selectedRecipes, selectedRecipes.size(), LocalDate.now());
+    MealPlan plan = new MealPlan("Pantry First", planRecipes, targetServings, LocalDate.now());
+    plan.setRequiresGroceryRun(requiresGroceryRun);
+    return plan;
   }
 
   // ---- Private helpers ----
@@ -125,10 +122,17 @@ public class PantryFirstStrategy implements IMealPlanStrategy {
   private static class ScoredRecipe {
     final Recipe recipe;
     final int score;
+    final int totalIngredients;
 
-    ScoredRecipe(Recipe recipe, int score) {
+    ScoredRecipe(Recipe recipe, int score, int totalIngredients) {
       this.recipe = recipe;
       this.score = score;
+      this.totalIngredients = totalIngredients;
+    }
+
+    double getPercentage() {
+      if (totalIngredients == 0) return 0;
+      return (double) score / totalIngredients;
     }
   }
 }

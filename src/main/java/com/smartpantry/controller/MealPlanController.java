@@ -63,7 +63,7 @@ public class MealPlanController {
     Objects.requireNonNull(inventory, "Inventory cannot be null");
     Objects.requireNonNull(recipes, "Recipes cannot be null");
 
-    currentPlan = generator.generatePlan(inventory, recipes);
+    currentPlan = generator.generatePlan(inventory, recipes, 7); // Default to 7 for legacy Phase 0 compatibility
     return currentPlan;
   }
 

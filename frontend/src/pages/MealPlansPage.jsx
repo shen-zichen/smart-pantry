@@ -8,7 +8,7 @@ export default function MealPlansPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStrategy, setSelectedStrategy] = useState("");
-  const [days, setDays] = useState(3);
+  const [meals, setMeals] = useState(3);
   const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
@@ -35,26 +35,36 @@ export default function MealPlansPage() {
   async function handleGenerate(e) {
     e.preventDefault();
     try {
-      const plan = await mealPlanApi.generate(selectedStrategy, days);
+      const plan = await mealPlanApi.generate(selectedStrategy, meals);
       setPlans([plan, ...plans]);
       setExpandedId(plan.id);
+      if (plan.requiresGroceryRun) {
+        window.alert("Not enough food in stock to complete this plan entirely from your pantry. Please check the Grocery List to buy missing items!");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Failed to generate meal plan");
     }
   }
 
-  async function handleConsume(planId) {
-    if (
-      !confirm(
-        "Mark this plan as cooked? Ingredients will be deducted from your pantry.",
-      )
-    )
-      return;
+  async function handleMarkCooked(planId, recipeIndex) {
     try {
-      await mealPlanApi.postMealConsume(planId);
-      alert("Pantry updated! Ingredients have been deducted.");
+      const updated = await mealPlanApi.markCooked(planId, recipeIndex);
+      setPlans(plans.map((p) => (p.id === planId ? updated : p)));
     } catch (err) {
-      setError("Failed to consume meal plan");
+      setError(
+        err.response?.data?.message || "Failed to mark recipe as cooked",
+      );
+    }
+  }
+
+  async function handleDelete(planId) {
+    if (!confirm("Delete this meal plan?")) return;
+    try {
+      await mealPlanApi.deletePlan(planId);
+      setPlans(plans.filter((p) => p.id !== planId));
+      if (expandedId === planId) setExpandedId(null);
+    } catch (err) {
+      setError("Failed to delete meal plan");
     }
   }
 
@@ -95,14 +105,14 @@ export default function MealPlansPage() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Days
+              Meals
             </label>
             <input
               type="number"
               min="1"
               max="14"
-              value={days}
-              onChange={(e) => setDays(parseInt(e.target.value))}
+              value={meals}
+              onChange={(e) => setMeals(parseInt(e.target.value))}
               className="w-20 border border-gray-300 rounded-lg px-3 py-2"
             />
           </div>
@@ -123,67 +133,150 @@ export default function MealPlansPage() {
         </div>
       ) : (
         <div className="space-y-4">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
-            >
-              <div
-                className="p-4 cursor-pointer hover:bg-gray-50"
-                onClick={() =>
-                  setExpandedId(expandedId === plan.id ? null : plan.id)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold text-gray-900">
-                      {plan.strategyName} — {plan.days} day
-                      {plan.days > 1 ? "s" : ""}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Created: {plan.createdDate} · {plan.recipes.length} recipe
-                      {plan.recipes.length > 1 ? "s" : ""}
-                    </p>
-                  </div>
-                  <span className="text-gray-400">
-                    {expandedId === plan.id ? "▲" : "▼"}
-                  </span>
-                </div>
-              </div>
+          {plans.map((plan) => {
+            const cookedSet = new Set(plan.cookedIndexes || []);
+            const totalRecipes = plan.recipes.length;
+            const cookedCount = cookedSet.size;
+            const allCooked = cookedCount === totalRecipes;
 
-              {expandedId === plan.id && (
-                <div className="border-t border-gray-100 p-4 bg-gray-50">
-                  {plan.recipes.map((recipe, i) => (
-                    <div key={i} className="mb-4 last:mb-0">
-                      <h4 className="font-medium text-gray-800">
-                        Day {i + 1}: {recipe.name}
-                      </h4>
-                      <p className="text-sm text-gray-500 mb-1">
-                        {recipe.description}
+            return (
+              <div
+                key={plan.id}
+                className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
+              >
+                <div
+                  className="p-4 cursor-pointer hover:bg-gray-50"
+                  onClick={() =>
+                    setExpandedId(expandedId === plan.id ? null : plan.id)
+                  }
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 flex items-center flex-wrap gap-2">
+                        {plan.strategyName} — {plan.days} meal
+                        {plan.days > 1 ? "s" : ""}
+                        {plan.requiresGroceryRun && (
+                          <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-sm border border-orange-200">
+                            🛒 Requires Groceries
+                          </span>
+                        )}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        Created: {plan.createdDate} · {totalRecipes} recipe
+                        {totalRecipes > 1 ? "s" : ""}
                       </p>
-                      <div className="text-xs text-gray-500">
-                        Ingredients:{" "}
-                        {recipe.ingredients
-                          .map(
-                            (ing) =>
-                              `${ing.quantity} ${ing.unitType} ${ing.name}`,
-                          )
-                          .join(", ")}
-                      </div>
                     </div>
-                  ))}
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <button
-                      onClick={() => handleConsume(plan.id)}
-                      className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 text-sm"
-                    >
-                      🍳 I Cooked This — Deduct from Pantry
-                    </button>
+                    <div className="flex items-center gap-3">
+                      {/* Progress badge */}
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full font-medium ${
+                          allCooked
+                            ? "bg-green-100 text-green-800"
+                            : cookedCount > 0
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {cookedCount}/{totalRecipes} cooked
+                      </span>
+                      {/* Delete button */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(plan.id);
+                        }}
+                        className="text-red-400 hover:text-red-600 text-sm"
+                        title="Delete plan"
+                      >
+                        🗑
+                      </button>
+                      <span className="text-gray-400">
+                        {expandedId === plan.id ? "▲" : "▼"}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+
+                {expandedId === plan.id && (
+                  <div className="border-t border-gray-100 p-4 bg-gray-50">
+                    {plan.recipes.map((recipe, i) => {
+                      const isCooked = cookedSet.has(i);
+                      return (
+                        <div
+                          key={i}
+                          className={`flex items-start gap-3 mb-4 last:mb-0 p-3 rounded-lg transition-colors ${
+                            isCooked ? "bg-green-50" : "bg-white"
+                          }`}
+                        >
+                          {/* Checkbox */}
+                          <button
+                            onClick={() =>
+                              !isCooked && handleMarkCooked(plan.id, i)
+                            }
+                            disabled={isCooked}
+                            className={`mt-0.5 flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${
+                              isCooked
+                                ? "bg-green-500 border-green-500 text-white cursor-default"
+                                : "border-gray-300 hover:border-green-400 cursor-pointer"
+                            }`}
+                            title={
+                              isCooked
+                                ? "Already cooked"
+                                : "Mark as cooked (deducts from pantry)"
+                            }
+                          >
+                            {isCooked && (
+                              <span className="text-xs font-bold">✓</span>
+                            )}
+                          </button>
+
+                          {/* Recipe info */}
+                          <div className="flex-1">
+                            <h4
+                              className={`font-medium ${
+                                isCooked
+                                  ? "text-gray-400 line-through"
+                                  : "text-gray-800"
+                              }`}
+                            >
+                              {recipe.name} <span className="text-sm font-normal text-gray-500">({recipe.servings} serving{recipe.servings !== 1 ? 's' : ''})</span>
+                            </h4>
+                            <p
+                              className={`text-sm mb-1 ${
+                                isCooked ? "text-gray-300" : "text-gray-500"
+                              }`}
+                            >
+                              {recipe.description}
+                            </p>
+                            <div
+                              className={`text-xs ${
+                                isCooked ? "text-gray-300" : "text-gray-500"
+                              }`}
+                            >
+                              Ingredients:{" "}
+                              {recipe.ingredients
+                                .map(
+                                  (ing) =>
+                                    `${ing.quantity} ${ing.unitType} ${ing.name}`,
+                                )
+                                .join(", ")}
+                            </div>
+                          </div>
+
+                          {/* Status label */}
+                          {isCooked && (
+                            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
+                              ✓ Cooked
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

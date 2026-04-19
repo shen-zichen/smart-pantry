@@ -85,6 +85,13 @@ public class PantryServiceImpl implements IPantryService {
   }
 
   @Override
+  public List<PantryItem> findByExactName(String name) {
+    return repository.findByIngredientNameIgnoreCase(name).stream()
+        .map(PantryItemMapper::toDomain)
+        .toList();
+  }
+
+  @Override
   public List<PantryItem> getLowStockItems() {
     return repository.findAll().stream()
         .map(PantryItemMapper::toDomain)

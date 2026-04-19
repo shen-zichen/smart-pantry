@@ -27,7 +27,8 @@ public interface IMealPlanStrategy {
    *
    * @param inventory the current pantry contents
    * @param recipes the full recipe library to choose from
+   * @param targetServings total servings the generated plan should provide
    * @return a MealPlan containing the selected recipes
    */
-  MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes);
+  MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes, int targetServings);
 }

@@ -1,13 +1,16 @@
 package com.smartpantry.controller;
 
+import com.smartpantry.dto.BoughtItemRequest;
 import com.smartpantry.dto.GroceryItemResponse;
 import com.smartpantry.model.GroceryItem;
 import com.smartpantry.service.IGroceryService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/** REST endpoint for grocery list generation. */
+/** REST endpoints for grocery list generation and purchase tracking. */
 @RestController
 @RequestMapping("/api/grocery")
 public class GroceryRestController {
@@ -30,5 +33,12 @@ public class GroceryRestController {
                     item.getUnitType().name(),
                     item.getIngredient().getCategoryType().name()))
         .toList();
+  }
+
+  /** POST /api/grocery/bought — mark items as purchased and restock pantry. */
+  @PostMapping("/bought")
+  @ResponseStatus(HttpStatus.OK)
+  public void markBought(@Valid @RequestBody List<BoughtItemRequest> items) {
+    groceryService.markBought(items);
   }
 }

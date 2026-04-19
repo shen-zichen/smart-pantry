@@ -1,5 +1,6 @@
 package com.smartpantry.service;
 
+import com.smartpantry.dto.BoughtItemRequest;
 import com.smartpantry.model.GroceryItem;
 
 import java.util.List;
@@ -17,4 +18,11 @@ public interface IGroceryService {
    * @return items that need to be purchased, with deficit quantities
    */
   List<GroceryItem> generateGroceryList(Long planId);
+
+  /**
+   * Marks grocery items as bought — restocks existing pantry items or creates new ones.
+   *
+   * @param items the items that were purchased
+   */
+  void markBought(List<BoughtItemRequest> items);
 }

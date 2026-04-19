@@ -2,8 +2,10 @@ package com.smartpantry.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * The output of a meal plan strategy. Immutable and read-only — strategies produce MealPlans,
@@ -16,16 +18,18 @@ public class MealPlan {
 
   private final String strategyName; // e.g., "Zero Waste", "Budget" — for display
   private final List<Recipe> recipes;
-  private final int days; // how many days this plan covers
+  private final int days; // how many meals this plan covers
   private final LocalDate createdDate;
   private Long id;
+  private Set<Integer> cookedIndexes = new HashSet<>();
+  private boolean requiresGroceryRun;
 
   /**
    * Constructs a MealPlan with validated and defensively copied inputs.
    *
    * @param strategyName the name of the strategy that generated this plan
    * @param recipes the ordered list of recipes in this plan
-   * @param days how many days this plan covers, must be positive
+   * @param days how many meals this plan covers, must be positive
    * @param createdDate when this plan was generated
    */
   public MealPlan(String strategyName, List<Recipe> recipes, int days, LocalDate createdDate) {
@@ -92,5 +96,21 @@ public class MealPlan {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Set<Integer> getCookedIndexes() {
+    return new HashSet<>(cookedIndexes);
+  }
+
+  public void setCookedIndexes(Set<Integer> cookedIndexes) {
+    this.cookedIndexes = new HashSet<>(cookedIndexes);
+  }
+
+  public boolean isRequiresGroceryRun() {
+    return requiresGroceryRun;
+  }
+
+  public void setRequiresGroceryRun(boolean requiresGroceryRun) {
+    this.requiresGroceryRun = requiresGroceryRun;
   }
 }

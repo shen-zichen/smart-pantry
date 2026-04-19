@@ -47,12 +47,13 @@ public class MealPlanGenerator {
    *
    * @param inventory the current pantry contents
    * @param recipes the full recipe library
+   * @param targetServings target amount of servings
    * @return a MealPlan produced by the active strategy
    */
-  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes) {
+  public MealPlan generatePlan(List<PantryItem> inventory, List<Recipe> recipes, int targetServings) {
     Objects.requireNonNull(inventory, "Inventory cannot be null");
     Objects.requireNonNull(recipes, "Recipes cannot be null");
-    return strategy.generatePlan(inventory, recipes);
+    return strategy.generatePlan(inventory, recipes, targetServings);
   }
 
   /** Returns the current strategy (useful for display: "Plan generated using Zero Waste mode"). */
