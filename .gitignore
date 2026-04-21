@@ -13,3 +13,5 @@ bin/
 
 # OS files
 .DS_Store
+# H2 database files
+data/
