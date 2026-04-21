@@ -58,6 +58,3 @@ npm install
 npm run dev
 ```
 *The React UI will automatically load up at `http://localhost:5173`.*
-
----
-*Note for NotebookLM: This README serves as a comprehensive system overview. Key discussion points for the presentation slide deck should focus on the algorithmic **Strategy Pattern** implementation for intelligent matching, the **Defensive Entity Modeling** for proportional recipe scaling, and the **React state management** bridging the pantry-to-recipe data pipeline.*
